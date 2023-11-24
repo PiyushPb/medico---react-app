@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Doctors from "../pages/Doctors/Doctors";
 import DoctorsDetails from "../pages/Doctors/DoctorsDetails";
+import Error from "../pages/Error";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -20,7 +21,7 @@ const Routers = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/doctors" element={<Doctors />} />
       <Route path="/doctors/:id" element={<DoctorsDetails />} />
-      <Route path="*" element={<h1>404 page not found</h1>} />
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 };
