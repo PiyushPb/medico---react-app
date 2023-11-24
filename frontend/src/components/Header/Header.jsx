@@ -38,10 +38,16 @@ const Header = () => {
   };
 
   useEffect(() => {
-    handleStickyHeader();
-    return () => window.removeEventListener("scroll", handleStickyHeader);
-  });
+    const handleScroll = () => {
+      handleStickyHeader();
+    };
 
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   const toggleMenu = () => menuRef.current.classList.toggle("show__menu");
 
   return (
