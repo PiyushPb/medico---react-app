@@ -9,8 +9,11 @@ import heroImg03 from "../assets/images/hero-img03.png";
 import icon01 from "../assets/images/icon01.png";
 import icon02 from "../assets/images/icon02.png";
 import icon03 from "../assets/images/icon03.png";
+import featureImg from "../assets/images/feature-img.png";
+import faqImg from "../assets/images/faq-img.png";
 import About from "../components/About/About";
 import ServicesList from "../components/Services/ServicesList";
+import FaqList from "../components/Faq/FaqList";
 
 const Home = () => {
   return (
@@ -168,6 +171,53 @@ const Home = () => {
             </div>
 
             <ServicesList />
+          </div>
+        </section>
+
+        {/* --------------------- features section ---------------------  */}
+        <section>
+          <div className="container">
+            <div className="flex items-center justify-between flex-col lg:flex-row">
+              <div className="xl:w-[670px]">
+                <h2 className="heading">
+                  Get virtual treatment <br /> anytime anywhere!
+                </h2>
+                <ul className="pl-4">
+                  <li className="para__text mt-2">
+                    1. Schedule the appointment directly.
+                  </li>
+                  <li className="para__text mt-2">
+                    2. Loream ipsum is a placeholder text commonly used to
+                    demonstrate.
+                  </li>
+                  <li className="para__text mt-2">
+                    3. Loream ipsum is a placeholder text commonly used to
+                    demonstrate.
+                  </li>
+                </ul>
+              </div>
+              {/* ------------- features image ------------- */}
+              <div className="relative z-10 xl:w-[770px] flex justify-end mt-[50px] lg:mt-0">
+                <img src={featureImg} alt="" className="3/4" />
+
+                {/* <div className="w-[150px] lg:w-[248px] bg-red-500 absolute bottom-[50px] left-0 md:bottom-[100px] md:left-5 z-20 p-2 pb-3 lg:pt-4 lg:px-4 lg:pb-[26px] rounded-[10px]"></div> */}
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* ------------- FAQ Sections -------------*/}
+        <section>
+          <div className="container">
+            <div className="flex justify-between gap-[50px] lg:gap-0">
+              <div className="w-1/2 hidden md:block">
+                <img src={faqImg} alt="" />
+              </div>
+
+              <div className="w-full md:w-1/2">
+                <h2 className="heading">Frequently Asked Questions</h2>
+                <FaqList />
+              </div>
+            </div>
           </div>
         </section>
       </>
