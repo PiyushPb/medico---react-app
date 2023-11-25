@@ -10,7 +10,7 @@ const navLinks = [
   },
   {
     path: "/doctors",
-    display: "Doctors",
+    display: "Find a Doctor",
   },
   {
     path: "/services",
@@ -27,10 +27,7 @@ const Header = () => {
   const menuRef = useRef(null);
 
   const handleStickyHeader = () => {
-    if (
-      document.body.scrollTop > 80 ||
-      document.documentElement.scrollTop > 80
-    ) {
+    if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
       headerRef.current.classList.add("sticky");
     } else {
       headerRef.current.classList.remove("sticky");
