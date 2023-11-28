@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import signupImg from "../assets/images/signup.gif";
 import avatar from "../assets/images/avatar-icon.png";
 import { Link } from "react-router-dom";
 
 const Signup = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    photo: "",
+    gender: "",
+    role: "patient",
+  });
+
+  const handleInputChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    console.log(file);
+  };
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
+  };
+
   return (
     <section className="px-5 xl:px-0">
       <div className="max-w-[1170px] mx-auto">
@@ -20,12 +44,14 @@ const Signup = () => {
             <h3 className="text-headingColor text-[22px] font-bold mb-10">
               Create an <span className="text-primaryColor">account</span>
             </h3>
-            <form>
+            <form onSubmit={submitHandler}>
               <div className="mb-5">
                 <input
                   type="text"
                   placeholder="Full name"
                   name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   required
                 />
@@ -35,6 +61,8 @@ const Signup = () => {
                   type="email"
                   placeholder="Enter your email"
                   name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   required
                 />
@@ -44,6 +72,8 @@ const Signup = () => {
                   type="password"
                   placeholder="Password"
                   name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   required
                 />
@@ -58,6 +88,8 @@ const Signup = () => {
                   <select
                     name="role"
                     className="text-textColor font-semiBold text-[15px] leading-7 px-4 py-3 focus:outline-none"
+                    value={formData.role}
+                    onChange={handleInputChange}
                   >
                     <option value="patient">Patient</option>
                     <option value="doctor">Doctor</option>
@@ -71,6 +103,8 @@ const Signup = () => {
                   <select
                     name="gender"
                     className="text-textColor font-semiBold text-[15px] leading-7 px-4 py-3 focus:outline-none"
+                    value={formData.gender}
+                    onChange={handleInputChange}
                   >
                     <option value="patient">Male</option>
                     <option value="doctor">Female</option>
@@ -92,6 +126,7 @@ const Signup = () => {
                     type="file"
                     name="photo"
                     id="customFile"
+                    onChange={handleFileInputChange}
                     accept=".jpg, .jpeg, .png"
                     className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
                   />
@@ -102,6 +137,9 @@ const Signup = () => {
                     Upload a photo
                   </label>
                 </div>
+              </div>
+              <div className="mt-0">
+                <button className="btn w-full rounded-lg mt-2">Login</button>
               </div>
               <p className="mt-5 text-textColor text-center">
                 Allready have an account?
