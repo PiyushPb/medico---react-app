@@ -1,31 +1,69 @@
 import React, { useState } from "react";
 import signupImg from "../assets/images/signup.gif";
 import avatar from "../assets/images/avatar-icon.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import uploadImageToCloudinary from "../utils/uploadCloudinary";
+import { BASE_URL } from "../config";
+import { toast } from "react-toastify";
+import { HashLoader } from "react-spinners";
 
 const Signup = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    photo: "",
+    photo: selectedFile,
     gender: "",
     role: "patient",
   });
+
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleFileInputChange = (event) => {
+  const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
-    console.log(file);
+
+    const data = await uploadImageToCloudinary(file);
+
+    setPreview(data.url);
+    setSelectedFile(data.url);
+    setFormData({ ...formData, photo: data.url });
   };
 
   const submitHandler = async (event) => {
+    console.log(formData);
     event.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${BASE_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const { message } = await res.json();
+
+      if (!res.ok) {
+        throw new Error(message);
+      }
+
+      setLoading(false);
+      toast.success(message);
+
+      navigate("/login");
+    } catch (error) {
+      toast.error(error.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -91,6 +129,9 @@ const Signup = () => {
                     value={formData.role}
                     onChange={handleInputChange}
                   >
+                    <option value="" disabled>
+                      Select option
+                    </option>
                     <option value="patient">Patient</option>
                     <option value="doctor">Doctor</option>
                   </select>
@@ -106,20 +147,25 @@ const Signup = () => {
                     value={formData.gender}
                     onChange={handleInputChange}
                   >
-                    <option value="patient">Male</option>
-                    <option value="doctor">Female</option>
-                    <option value="other">Female</option>
+                    <option value="" disabled>
+                      Select Gender
+                    </option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
                   </select>
                 </label>
               </div>
               <div className="mb-5 flex items-center gap-3">
-                <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center ">
-                  <img
-                    src={avatar}
-                    alt="..."
-                    className="w-full h-full rounded-full"
-                  />
-                </figure>
+                {selectedFile && (
+                  <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center ">
+                    <img
+                      src={preview}
+                      alt="..."
+                      className="w-full h-full rounded-full"
+                    />
+                  </figure>
+                )}
 
                 <div className="relative w-[160px] h-[50px]">
                   <input
@@ -139,7 +185,12 @@ const Signup = () => {
                 </div>
               </div>
               <div className="mt-0">
-                <button className="btn w-full rounded-lg mt-2">Login</button>
+                <button
+                  disabled={loading && true}
+                  className="btn w-full rounded-lg mt-2"
+                >
+                  {loading ? <HashLoader size={35} color="#fff" /> : "Signup"}
+                </button>
               </div>
               <p className="mt-5 text-textColor text-center">
                 Allready have an account?
