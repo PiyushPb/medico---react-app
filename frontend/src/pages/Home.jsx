@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 
 import heroImg01 from "../assets/images/hero-img01.png";
@@ -16,6 +16,10 @@ import ServicesList from "../components/Services/ServicesList";
 import FaqList from "../components/Faq/FaqList";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const navToPredict = () => {
+    navigate("/predict");
+  };
   return (
     <>
       <>
@@ -33,8 +37,9 @@ const Home = () => {
                     tempore nobis. Doloribus dolorum rem ipsam, deleniti ea
                     quibusdam exercitationem voluptatem nostrum vitae labore?
                   </p>
-
-                  <button className="btn">Request an Appointment</button>
+                  <button onClick={navToPredict} className="btn">
+                    Predict your health
+                  </button>
                 </div>
 
                 <div className="mt-[30px] lg:mt-[70px] flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-[30px]">

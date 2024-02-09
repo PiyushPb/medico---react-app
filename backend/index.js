@@ -25,14 +25,10 @@ app.get("/", (req, res) => {
 mongoose.set("strictQuery", false);
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL, {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-    });
-
+    await mongoose.connect(process.env.MONGO_URL);
     console.log(`MongoDB connected`);
   } catch (error) {
-    console.log(error);
+    console.error("MongoDB connection error:", error);
   }
 };
 

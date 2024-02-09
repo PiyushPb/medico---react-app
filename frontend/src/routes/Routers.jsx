@@ -10,6 +10,7 @@ import DoctorsDetails from "../pages/Doctors/DoctorsDetails";
 import Error from "../pages/Error";
 import MyAccount from "../Dashboard/user-account/MyAccount";
 import Dashboard from "../Dashboard/doctor-account/Dashboard";
+import Predict from "../pages/Predict/Predict";
 
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
@@ -24,6 +25,7 @@ const Routers = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/doctors" element={<Doctors />} />
       <Route path="/doctors/:id" element={<DoctorsDetails />} />
+      <Route path="/predict" element={<Predict />} />
       <Route
         path="/users/profile/me"
         element={
