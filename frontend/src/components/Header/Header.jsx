@@ -29,6 +29,8 @@ const Header = () => {
   const { user, token, role } = useContext(authContext);
   console.log(token, user);
 
+  console.log(role);
+
   const handleStickyHeader = () => {
     if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
       headerRef.current.classList.add("sticky");

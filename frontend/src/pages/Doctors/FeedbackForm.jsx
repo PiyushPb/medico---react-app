@@ -1,13 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiFillStar } from "react-icons/ai";
+import { useParams } from "react-router-dom";
+import { BASE_URL, token } from "../../config";
+import { toast } from "react-toastify";
+import { HashLoader } from "react-spinners";
 
 const FeedbackForm = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-  const [review, setReview] = useState("");
+  const [reviewText, setReviewText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState({});
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    // Fetch user data from local storage
+    const storedUserData = localStorage.getItem("user");
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
+  }, []);
 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    try {
+      if (!rating || !reviewText) {
+        setLoading(false);
+        return toast.error("Please fill all the fields");
+      }
+
+      const res = await fetch(`${BASE_URL}/doctors/${id}/reviews`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          rating,
+          reviewText,
+          user: userData._id, // Send user ObjectId
+          userName: userData.name, // Send user name
+          photo: userData.photo, // Send user photo URL
+        }),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.message);
+      }
+
+      setLoading(false);
+      toast.success(result.message);
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -51,13 +102,13 @@ const FeedbackForm = () => {
           rows="5"
           placeholder="Write your feedback here..."
           onChange={(e) => {
-            setReview(e.target.value);
+            setReviewText(e.target.value);
           }}
         ></textarea>
       </div>
 
-      <button type="submit" onClick={handleSubmitReview} className="btn">
-        Submit feedback
+      <button type="button" onClick={handleSubmitReview} className="btn">
+        {loading ? <HashLoader size={25} color="#fff" /> : "Submit feedback"}
       </button>
     </form>
   );

@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { GoStarFill } from "react-icons/go";
+import { FaArrowRight } from "react-icons/fa";
 
-import doctorImg01 from "../../assets/images/doctor-img01.png";
 const DoctorCard = (props) => {
   return (
-    <div className="">
+    <div className="relative">
       <img src={props.doctor.photo} alt="" />
       <h3 className="text-xl font-[700] text-headingColor mt-3">
         {props.doctor.name}
@@ -14,10 +15,17 @@ const DoctorCard = (props) => {
           {props.doctor.specialty}
         </p>
         <div className="flex items-center gap-1">
-          <GoStarFill className="text-yellowColor" /> {props.doctor.avgRating}{" "}
+          <GoStarFill className="text-yellowColor" />{" "}
+          {props.doctor.averageRating}{" "}
           <span className="text-[#a5a5a5]"> ({props.doctor.totalRating})</span>
         </div>
       </div>
+      <Link
+        className="absolute mt-5 text-[#0ea5e9] flex gap-2 items-center justify-center hover:text-[#126b94] transition-[color]"
+        to={`/doctors/${props.doctor._id}`}
+      >
+        View Profile <FaArrowRight />
+      </Link>
     </div>
   );
 };

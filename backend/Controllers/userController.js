@@ -79,6 +79,8 @@ export const getUserProfile = async (req, res) => {
     }
     const { password, ...rest } = user._doc;
 
+    console.log("finding yser");
+
     res.status(200).json({
       success: true,
       message: "Profile info is getting",

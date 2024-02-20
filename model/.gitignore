@@ -127,3 +127,5 @@ dmypy.json
 .pytype/
 
 cython_debug/
+/src/data/Testing/
+/src/data/Training/

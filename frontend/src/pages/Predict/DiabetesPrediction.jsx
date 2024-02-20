@@ -39,7 +39,7 @@ const DiabetesPrediction = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data.prediction);
+        console.log(data);
         setResult(data.prediction);
       })
       .catch((err) => {

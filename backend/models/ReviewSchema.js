@@ -5,11 +5,19 @@ const reviewSchema = new mongoose.Schema(
   {
     doctor: {
       type: mongoose.Types.ObjectId,
-      ref: "Doctor",
+      required: true,
     },
     user: {
       type: mongoose.Types.ObjectId,
-      ref: "User",
+      required: true,
+    },
+    userName: {
+      type: String,
+      required: true,
+    },
+    photo: {
+      type: String,
+      required: true,
     },
     reviewText: {
       type: String,
@@ -26,15 +34,6 @@ const reviewSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-reviewSchema.pre(/^find/, function (next) {
-  console.log("Populating user in reviews");
-  this.populate({
-    path: "user",
-    select: "name photo",
-  });
-  next();
-});
-
 reviewSchema.statics.calcAverageRating = async function (doctorId) {
   const stats = await this.aggregate([
     { $match: { doctor: doctorId } },
@@ -49,7 +48,7 @@ reviewSchema.statics.calcAverageRating = async function (doctorId) {
 
   await Doctor.findByIdAndUpdate(doctorId, {
     totalRating: stats[0].nRating,
-    avgRating: stats[0].avgRating,
+    averageRating: stats[0].avgRating,
   });
 };
 

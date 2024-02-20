@@ -91,6 +91,18 @@ export const login = async (req, res) => {
         .json({ status: false, message: "Invalid credentials" });
     }
 
+    if (user.isApproved === "pending") {
+      return res
+        .status(400)
+        .json({ status: false, message: "Please wait for admin approval" });
+    }
+
+    if (user.isApproved === "rejected") {
+      return res
+        .status(400)
+        .json({ status: false, message: "Your account has been rejected" });
+    }
+
     // get token
 
     const token = generateToken(user);

@@ -6,9 +6,11 @@ const DoctorSchema = new mongoose.Schema({
   name: { type: String, required: true },
   phone: { type: Number },
   photo: { type: String },
-  ticketPrice: { type: Number },
+  ticketPrice: { type: Number, default: 1000 },
+  specialty: { type: String, default: "Surgeon" },
   role: {
     type: String,
+    default: "doctor",
   },
 
   // Fields for doctors only
