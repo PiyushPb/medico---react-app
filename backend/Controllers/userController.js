@@ -93,13 +93,11 @@ export const getUserProfile = async (req, res) => {
 
 export const getMyAppointments = async (req, res) => {
   try {
-    // const user = await User.findById(req.userId);
+    const bookings = await Booking.find({ user: req.userId });
 
-    const bookings = await Booking.find({ userId: req.userId });
+    const doctorIds = bookings.map((el) => el.doctor.id);
 
-    const doctorsIds = bookings.map((booking) => booking.doctorId);
-
-    const doctors = await Doctor.find({ _id: { $in: doctorsIds } }).select(
+    const doctors = await Doctor.find({ _id: { $in: doctorIds } }).select(
       "-password"
     );
 
