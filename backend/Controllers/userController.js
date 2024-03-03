@@ -79,7 +79,7 @@ export const getUserProfile = async (req, res) => {
     }
     const { password, ...rest } = user._doc;
 
-    console.log("finding yser");
+    console.log("finding user");
 
     res.status(200).json({
       success: true,

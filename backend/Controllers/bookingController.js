@@ -16,7 +16,7 @@ export const getCheckoutSession = async (req, res) => {
       payment_method_types: ["card"],
       mode: "payment",
       success_url: `${process.env.CLIENT_SITE_URL}checkout-success`,
-      cancel_url: `${req.protocol}://${req.get("host")}/doctors/${doctor._id}`,
+      cancel_url: `${process.env.CLIENT_SITE_URL}doctors/${doctor._id}`,
       customer_email: user.email,
       client_reference_id: req.params.doctorId,
       line_items: [
@@ -41,6 +41,8 @@ export const getCheckoutSession = async (req, res) => {
       ticketPrice: parseInt(doctor.ticketPrice, 10), // Convert to number
       session: session.id,
     });
+
+    console.log("Session:", session.payment_status);
 
     await booking.save();
 

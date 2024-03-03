@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Fail from "./diabetes/Fail";
-import Success from "./diabetes/success";
+import Fail from "./heart/Fail";
+import Success from "./heart/Success";
 
 const HeartPrediction = () => {
   const [formData, setFormData] = React.useState({
@@ -56,8 +56,8 @@ const HeartPrediction = () => {
 
   return (
     <div className="container">
-      <h1 className="text-3xl font-bold mt-10">Diabetes Prediction</h1>
-      <p className="text-lg mt-2">Diabetes Prediction</p>
+      <h1 className="text-3xl font-bold mt-10">heart disease Prediction</h1>
+      <p className="text-lg mt-2">Heart disease Prediction</p>
 
       <form className="mt-10">
         <div className="flex gap-2 flex-wrap">
