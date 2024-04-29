@@ -4,6 +4,7 @@ import DiabetesPrediction from "./DiabetesPrediction";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import HeartPrediction from "./HeartPrediction";
 import BrainTumorPrediction from "./BrainTumorPrediction";
+import DrugSuggestion from "./DrugSuggestion";
 
 const Predict = () => {
   const [page, setPage] = React.useState(1);
@@ -14,7 +15,7 @@ const Predict = () => {
         <Cards setPage={setPage} />
       ) : page === 2 ? (
         <>
-          <div className="container flex gap-2">
+          <div className="container flex gap-2 mt-5">
             <FaLongArrowAltLeft
               className="text-3xl"
               onClick={() => setPage(1)}
@@ -25,7 +26,7 @@ const Predict = () => {
         </>
       ) : page === 3 ? (
         <>
-          <div className="container flex gap-2">
+          <div className="container flex gap-2 mt-5">
             <FaLongArrowAltLeft
               className="text-3xl"
               onClick={() => setPage(1)}
@@ -36,7 +37,7 @@ const Predict = () => {
         </>
       ) : page === 4 ? (
         <>
-          <div className="container flex gap-2">
+          <div className="container flex gap-2 mt-5">
             <FaLongArrowAltLeft
               className="text-3xl"
               onClick={() => setPage(1)}
@@ -44,6 +45,18 @@ const Predict = () => {
             <h1 className="text-xl font-bold">Go back</h1>
           </div>
           <BrainTumorPrediction />
+        </>
+      ) : page === 5 ? (
+        <>
+          <div className="container flex gap-2 mt-5">
+            <FaLongArrowAltLeft
+              className="text-3xl"
+              onClick={() => setPage(1)}
+            />
+            <h1 className="text-xl font-bold">Go back</h1>
+          </div>
+
+          <DrugSuggestion />
         </>
       ) : (
         <h1>Page Not Found</h1>

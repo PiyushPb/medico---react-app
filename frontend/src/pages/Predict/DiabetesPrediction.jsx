@@ -28,7 +28,7 @@ const DiabetesPrediction = () => {
     const floatValues = Object.values(formData).map(parseFloat);
     const values = floatValues.join(",");
 
-    fetch("http://127.0.0.1:5000/api/v1/diabetesPrediction", {
+    fetch("https://medicobhbackendapi.onrender.com/api/v1/diabetesPrediction", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

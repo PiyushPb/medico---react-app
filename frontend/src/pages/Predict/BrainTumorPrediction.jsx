@@ -43,7 +43,7 @@ const BrainTumorPrediction = () => {
         formData.append("image", dataURItoBlob(image));
 
         const response = await axios.post(
-          "http://localhost:5000/api/v1/brainTumorPrediction",
+          "http://ec2-65-0-139-126.ap-south-1.compute.amazonaws.com:5000/api/v1/brainTumorPrediction",
           formData
         );
 

@@ -15,6 +15,7 @@ import CheckoutPage from "../pages/CheckoutPage";
 
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
+import StartServers from "../pages/StartServers";
 
 const Routers = () => {
   return (
@@ -27,6 +28,7 @@ const Routers = () => {
       <Route path="/doctors" element={<Doctors />} />
       <Route path="/doctors/:id" element={<DoctorsDetails />} />
       <Route path="/predict" element={<Predict />} />
+      <Route path="/StartServer" element={<StartServers />} />
       <Route path="/checkout-success" element={<CheckoutPage />} />
       <Route
         path="/users/profile/me"

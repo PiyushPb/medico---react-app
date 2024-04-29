@@ -35,7 +35,7 @@ const HeartPrediction = () => {
 
     console.log(values);
 
-    fetch("http://127.0.0.1:5000/api/v1/heartPrediction", {
+    fetch("https://medicobhbackendapi.onrender.com/api/v1/heartPrediction", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -284,7 +284,7 @@ const HeartPrediction = () => {
           </div>
         </div>
         <button className="btn mt-1" onClick={handleSubmit}>
-          Diabetes test result
+          Heart test result
         </button>
       </form>
       {result !== null ? result === 1 ? <Fail /> : <Success /> : null}
