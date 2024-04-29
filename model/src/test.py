@@ -26,10 +26,6 @@ scaler = diabetes_model['scaler']
 with open('./models/heart_model.pkl', 'rb') as file:
     heart_model = pickle.load(file)
 
-# ------------------- Braintumor PREDICTION API ------------------------
-
-# Load the brain tumor model
-# brainTumor_model = load_model('./models/braintumor.h5')
 
 
 # ------------------ Symptoms Prediction API ---------------------------

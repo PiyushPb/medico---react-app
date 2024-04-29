@@ -10,20 +10,12 @@ import {
 
 const socialLinks = [
   {
-    path: "https://www.linkedin.com/in/piyushpardeshi/",
+    path: "https://www.linkedin.com/in/santosh-narvekar-7664a5259/",
     icon: <RiLinkedinFill className="group-hover:text-white w-4 h-5" />,
   },
   {
-    path: "https://github.com/PiyushPb",
-    icon: <AiFillGithub className="group-hover:text-white w-4 h-5" />,
-  },
-  {
-    path: "https://www.instagram.com/codewithpiyush/",
+    path: "https://www.instagram.com/prathamesh_0620/",
     icon: <AiOutlineInstagram className="group-hover:text-white w-4 h-5" />,
-  },
-  {
-    path: "https://www.youtube.com/@codewithpiyush",
-    icon: <AiFillYoutube className="group-hover:text-white w-4 h-5" />,
   },
 ];
 
@@ -85,7 +77,7 @@ const Footer = () => {
           <div>
             <img src={Logo} alt="" />
             <p className="text-[16px] leading-7 font-[400] text-textColor mt-4">
-              Copyright © {year} developed by Prathamesh and group
+              Copyright © {year} developed by Prathamesh, Santosh and Ajinkya.
             </p>
             <div className="flex items-center gap-3 mt-4">
               {socialLinks.map((item, index) => (

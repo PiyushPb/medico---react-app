@@ -179,7 +179,7 @@ const DrugSuggestion = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:8000/api/v1/symptomsPrediction",
+        "https://medicobhbackendapi.onrender.com/api/v1/symptomsPrediction",
         {
           method: "POST",
           headers: {
