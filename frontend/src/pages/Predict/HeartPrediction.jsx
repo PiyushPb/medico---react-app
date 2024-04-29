@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Fail from "./diabetes/Fail";
-import Success from "./diabetes/success";
+import Fail from "./heart/Fail";
+import Success from "./heart/Success";
 
 const HeartPrediction = () => {
   const [formData, setFormData] = React.useState({
@@ -35,7 +35,7 @@ const HeartPrediction = () => {
 
     console.log(values);
 
-    fetch("http://127.0.0.1:5000/api/v1/heartPrediction", {
+    fetch("https://medicobhbackendapi.onrender.com/api/v1/heartPrediction", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,8 +56,8 @@ const HeartPrediction = () => {
 
   return (
     <div className="container">
-      <h1 className="text-3xl font-bold mt-10">Diabetes Prediction</h1>
-      <p className="text-lg mt-2">Diabetes Prediction</p>
+      <h1 className="text-3xl font-bold mt-10">heart disease Prediction</h1>
+      <p className="text-lg mt-2">Heart disease Prediction</p>
 
       <form className="mt-10">
         <div className="flex gap-2 flex-wrap">
@@ -284,7 +284,7 @@ const HeartPrediction = () => {
           </div>
         </div>
         <button className="btn mt-1" onClick={handleSubmit}>
-          Diabetes test result
+          Heart test result
         </button>
       </form>
       {result !== null ? result === 1 ? <Fail /> : <Success /> : null}

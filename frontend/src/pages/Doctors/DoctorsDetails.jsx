@@ -83,13 +83,19 @@ const DoctorsDetails = () => {
             </div>
             <div className="mt-[50px]">
               {tab === "about" && <DoctorAbout doctorData={doctorData} />}
-              {tab === "feedback" && <Feedback reviews={doctorData?.reviews} totalRating = {doctorData?.totalRating}/>}
+              {tab === "feedback" && (
+                <Feedback
+                  reviews={doctorData?.reviews}
+                  totalRating={doctorData?.totalRating}
+                />
+              )}
             </div>
           </div>
           <div>
             <SidePannel
-              doctorData={doctorData.timeSlots}
-              doctorFees={doctorData.ticketPrice}
+              doctorId={doctorData?._id}
+              ticketPrice={doctorData?.ticketPrice}
+              timeSlots={doctorData?.timeSlots}
             />
           </div>
         </div>

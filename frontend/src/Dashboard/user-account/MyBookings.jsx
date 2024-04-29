@@ -12,17 +12,22 @@ const MyBookings = () => {
   } = useFetchData(`${BASE_URL}/users/appointments/my-appointments`);
 
   return (
-    <div>
+    <div className="max-w-[1170px] mt-5">
       {loading && !error && <Loading />}
       {error && !loading && <Error errMessage={error} />}
       {!loading &&
       !error &&
-      Array.isArray(appointments) &&
-      appointments.length > 0 ? (
+      Array.isArray(appointments?.bookings) &&
+      appointments.bookings.length > 0 ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          {appointments.map((doctor) => (
-            <DoctorCard key={doctor._id} doctor={doctor} />
-          ))}
+          {appointments.bookings.map((booking) => {
+            // Find the corresponding doctor in the doctors array
+            const doctorInfo = appointments.doctors.find(
+              (doctor) => doctor.name === booking.doctor.name
+            );
+
+            return <DoctorCard key={booking._id} doctor={doctorInfo} />;
+          })}
         </div>
       ) : (
         <div>No appointments found.</div>

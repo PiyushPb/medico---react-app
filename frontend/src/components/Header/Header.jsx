@@ -27,9 +27,6 @@ const Header = () => {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
   const { user, token, role } = useContext(authContext);
-  console.log(token, user);
-
-  console.log(role);
 
   const handleStickyHeader = () => {
     if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {

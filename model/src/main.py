@@ -2,11 +2,16 @@ from flask import Flask, jsonify, request
 import pickle
 import numpy as np
 import flask_cors
-import cv2
-from tensorflow.keras.preprocessing import image  
+import cv2, os
 import matplotlib.pyplot as plt
-from tensorflow.keras.models import load_model
+import warnings
+import os
+from keras.models import load_model
 
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+
+# Suppress TensorFlow deprecation warnings
+warnings.filterwarnings("ignore", category = DeprecationWarning)
 app = Flask(__name__)
 flask_cors.CORS(app)
 
@@ -25,16 +30,12 @@ scaler = diabetes_model['scaler']
 with open('./models/heart_model.pkl', 'rb') as file:
     heart_model = pickle.load(file)
 
+# ------------------- Braintumor PREDICTION API ------------------------
 
-# ------------------- BrainTumor Detection API --------------------------
-brainTumModel = load_model('./models/braintumor.h5')
+# Load the brain tumor model
+brainTumor_model = load_model('./models/braintumor.h5')
 
-def preprocess_image(img_path):
-    img = cv2.imread(img_path)
-    img = cv2.resize(img, (150, 150))
-    img_array = np.array(img)
-    img_array = img_array.reshape(1, 150, 150, 3)
-    return img_array
+
 
 
 
@@ -88,31 +89,33 @@ def heart_prediction():
         # Handle any exceptions
         return jsonify({'error': str(e)})
 
-
 @app.route('/api/v1/brainTumorPrediction', methods=['POST'])
-def brain_tumor_prediction():
-    if 'image' not in request.files:
-        return jsonify({'error': 'No image provided'}), 400
+def brainTumor_prediction():
+    try:
+        image = request.files['image']
 
-    image_file = request.files['image']
+        # Save the image to a temporary file
+        image.save('image.png')
+        
+        # Load the image
+        img = cv2.imread('image.png')
 
-    allowed_extensions = {'jpg', 'jpeg', 'png'}
-    if not image_file.filename.lower().endswith(tuple(allowed_extensions)):
-        return jsonify({'error': 'Invalid file type. Allowed types: jpg, jpeg, png'}), 400
+        img = cv2.resize(img, (150, 150))
+        img_array = np.array(img)
 
-    # Save the image to a temporary file
-    temp_path = 'temp_image.jpg'
-    image_file.save(temp_path)
+        img_array = img_array.reshape(1, 150, 150, 3)
 
-    # Preprocess the image
-    img_array = preprocess_image(temp_path)
+        a = brainTumor_model.predict(img_array)
+        indices = a.argmax()
+        
+        print(indices)
 
-    # Make prediction
-    prediction = brainTumModel.predict(img_array)
-    indices = prediction.argmax()
+        return jsonify({'prediction': int(indices)}) 
+    
+    except Exception as e:
+        # Handle any exceptions
+        return jsonify({'error': str(e)})
 
-    # Return the result
-    return jsonify({'prediction': int(indices)})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)

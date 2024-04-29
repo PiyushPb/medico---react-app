@@ -7,8 +7,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthContextProvider } from "./context/authContext.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
 
+import { ThemeProvider } from "@material-tailwind/react";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <ThemeProvider>
     <Router>
       <AuthContextProvider>
         <ToastContainer
@@ -23,5 +25,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <App />
       </AuthContextProvider>
     </Router>
-  </React.StrictMode>
+  </ThemeProvider>
 );
